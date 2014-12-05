@@ -1,0 +1,61 @@
+/* Empty. Add your own CSS if you like */
+
+.title {	
+	font-weight: bold;	
+}
+	.title blue {
+		color: #085BFD;
+	}
+
+
+ion-content {
+	padding: 10px;
+}
+
+.bar-footer {
+	cursor: pointer;
+}
+
+.forget-pass {
+	text-align: center;	
+	padding-top: 10px;
+}
+
+	.forget-pass a {
+		color: rgba(0,0,0,0.6);
+		text-decoration: none;
+	}
+
+.button-block {	
+	margin: 2.5%;
+	max-width: 95% !important;
+}
+
+.super-padding {
+	padding-top: 60px;
+}
+
+status {
+	float: right;
+	vertical-align: top;
+	color: rgba(0,0,0,0.4);
+}
+
+data {
+	font-size: 0.9em;
+	color: rgba(0,0,0,0.4);
+	display: block;
+}
+
+textarea {
+	height: 150px;
+}
+
+.p-10 {
+	padding: 20px;
+}
+
+
+.hidden {
+	display: none !important;
+}
