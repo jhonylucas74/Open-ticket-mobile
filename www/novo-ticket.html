@@ -28,8 +28,13 @@
 
     <ion-pane ng-controller="novoTicketController as ctrl">
       <ion-header-bar class="bar bar-header bar-light">
-        <h1 class="title">Open <blue>ticket</blue></h1>
-        <button class="button button-clear"><i class="icon ion-android-exit"></i></button>
+        <h1 class="title">Open <blue>Ticket</blue></h1>
+
+        
+        <button class="button button-clear">          
+            <i class="icon ion-android-exit"></i>          
+        </button>
+        
       </ion-header-bar>
 
       <ion-content>
@@ -42,17 +47,13 @@
 
           <label id="label-setor" class="item item-input item-stacked-label p-20">
             <span class="input-label">Setor</span>                
-              <input id="setor" ng-model="ctrl.setor" type="text" placeholder="T.I">
-            
-              <ul id="setor-list"class="hidden list">
-              
-              
-                <li ng-click="toggle()" class="item">T.I</li>
-                <li ng-click="toggle()" class="item">R.H</li>
-                <li ng-click="toggle()" class="item">ADM</li>              
-              </ul>
-
+              <input id="setor" ng-model="ctrl.setor" type="text" placeholder="T.I" ng-click="ctrl.showSetor()" readonly>
           </label>
+          <ul id="setor-list" class="list" ng-class="ctrl.setorClass">                  
+                <li class="item"  ng-click="ctrl.changeSetor('T.I')">T.I</li>
+                <li class="item"  ng-click="ctrl.changeSetor('R.H')">R.H</li>
+                <li class="item"  ng-click="ctrl.changeSetor('ADM')">ADM</li>
+          </ul>
 
           <label class="item item-input item-stacked-label">
             <span class="input-label">Mensagem</span>
@@ -69,11 +70,4 @@
       </ion-content>
     </ion-pane>
   </body>
-  <script type="text/javascript">
-    $(document).ready(function(){
-      $("#setor").click(function(){
-          $("#setor-list").removeClass("hidden");          
-      });        
-    });
-  </script>
 </html>

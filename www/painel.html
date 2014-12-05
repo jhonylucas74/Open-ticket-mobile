@@ -24,22 +24,27 @@
   </head>
   <body ng-app="starter">
 
-    <ion-pane>
+    <ion-pane ng-controller="painelController as ctrl">
       <ion-header-bar class="bar bar-header bar-light">
-        <h1 class="title">Open <blue>ticket</blue></h1>
-        <button class="button button-clear"><i class="icon ion-android-exit"></i></button>
+        <h1 class="title">Open <blue>Ticket</blue></h1>
+                
+        <button class="button button-clear">          
+            <i class="icon ion-android-exit"></i>          
+        </button>
+        
+
       </ion-header-bar>
 
       <!-- Tabs -->
     <div class="tabs-striped tabs-top tabs-background-positive tabs-light">
     <div class="tabs">
-      <a class="tab-item active" href="#">        
+      <a class="tab-item" ng-click="ctrl.changeTab(1)" href="#" ng-class="{'active': ctrl.tab == 1 }">
         Andamento
       </a>
-      <a class="tab-item" href="#">        
+      <a class="tab-item" href="#"  ng-click="ctrl.changeTab(2)" ng-class="{'active': ctrl.tab == 2 }">
         Encerrado
       </a>
-      <a class="tab-item" href="#">        
+      <a class="tab-item" href="#" ng-click="ctrl.changeTab(3)"  ng-class="{'active': ctrl.tab == 3 }">
         Todos
       </a>
     </div>

@@ -65,3 +65,8 @@ textarea {
 .hidden {
 	display: none !important;
 }
+
+#setor{
+	background-color: #ffffff;
+	cursor: pointer;
+}

@@ -18,9 +18,28 @@ app.run(function($ionicPlatform) {
   });
 });
 
+
+app.controller("painelController",function(){
+    this.tab = 1;
+
+    this.changeTab = function(i){
+      this.tab = i;
+    }
+});
+
+
 app.controller('novoTicketController', function() {
   this.setor = '';
+  this.setorClass = "hidden";
 
+  this.showSetor = function (){
+    this.setorClass = "";
   };
 
+  this.changeSetor = function(setor) {
+    this.setor = setor;
+    this.setorClass = "hidden";
+  };  
+
 });
+
