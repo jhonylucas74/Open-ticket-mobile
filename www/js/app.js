@@ -18,12 +18,8 @@ app.run(function($ionicPlatform) {
   });
 });
 
-app.controller('novoTicketController', function($window) {
+app.controller('novoTicketController', function() {
   this.setor = '';
-
-  this.toggle = function(){
-    $window.alert(greeting);
-    this.setor = "sd";
 
   };
 
