@@ -26,20 +26,26 @@ app.controller("painelController",function($http){
 
     this.changeTab = function(i){
       this.tab = i;
-
-      if(i == 2){
-        // Apenas os tickets com status 0
-        this.getData(0);
-      }else{
-        // Apenas os tickets com status 1
-        this.getData(1);
-      }
+      switch(i){
+        case 1:
+          // Apenas os tickets com status 1
+          this.getData("&where=status@1");
+          break;
+        case 2:
+          // Apenas os tickets com status 0
+          this.getData("&where=status@0");
+          break;
+        case 3:
+          // Todos os tickets
+          this.getData("");
+          break;
+      };   
     };
 
-    this.getData = function(i){    
+    this.getData = function(query){    
       $http({
           method: 'GET',
-          url: "http://sandbox.cachina.com.br/webservice.php?list_ticket=t&where=status@"+i,
+          url: "http://sandbox.cachina.com.br/webservice.php?list_ticket=t"+query,
           headers: {'Content-Type': 'application/x-www-form-urlencoded'}
           }).success(function(data, status, headers, config) {          
             $scope.data = data; 
@@ -50,7 +56,7 @@ app.controller("painelController",function($http){
           }); 
     };
     
-    this.getData(1);
+    this.getData("&where=status@1");
 });
 
 
@@ -85,20 +91,22 @@ app.controller('novoTicketController', function($scope, $http) {
     console.log(config);
   });
 
-  this.gravar = function(){
+  this.enviar = function(){
     console.log("entrei em gravar")
-
-    $http.post('http://sandbox.cachina.com.br/webservice.php',
+    /* update_ticket: true,*/
+    $http.get('http://sandbox.cachina.com.br/webservice.php',
       {
         setor: $scope.setor,
         assunto: $scope.assunto,
         mensagem: $scope.mensagem,
-        id: id,
-        update_ticket: true,
+        usuario: 42,        
+        new_ticket: true 
+        
       })
     .success(function(data, status, headers, config) {
-      // sucesso
+      // sucesso  
       console.log("foi enviado!");
+      console.log(data);
     }).
     error(function(data, status, headers, config) {
       // erro
