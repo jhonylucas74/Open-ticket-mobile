@@ -19,12 +19,29 @@ app.run(function($ionicPlatform) {
 });
 
 
-app.controller("painelController",function(){
+app.controller("painelController",function($http){
     this.tab = 1;
+    this.teste = "nao mudou";
 
-    this.changeTab = function(i){
+    this.changeTab = function(i){      
       this.tab = i;
-    }
+
+      /*getData.getHttp().then(function(d) {
+       this.teste= "eu mudei";*/
+    };
+
+    $http({ 
+        method: 'GET',
+        url: "http://sandbox.cachina.com.br/webservice.php?list_ticket=t&where=status@1",
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function(data, status, headers, config) {
+          $scope.data = data;
+        }).
+          error(function(data, status, headers, config) {
+          console.log(status);
+          console.log(config);     
+        });  
+
 });
 
 
