@@ -42,7 +42,7 @@
         <div class="list">
           <label class="item item-input item-stacked-label">
             <span class="input-label">Assunto</span>
-            <input type="text" placeholder="Sobre o..." id="assunto">
+            <input type="text" placeholder="Sobre o..." id="assunto" ng-model="ctrl.assunto">
           </label>
 
           <label id="label-setor" class="item item-input item-stacked-label p-20">
@@ -57,13 +57,13 @@
 
           <label class="item item-input item-stacked-label">
             <span class="input-label">Mensagem</span>
-            <textarea id="tct" placeholder="Sua mensagem aqui.."></textarea>
+            <textarea id="tct" placeholder="Sua mensagem aqui.."  ng-model="ctrl.mensagem"></textarea>
           </label>
       </div>
 
       <div class="button-bar p-5">
         <a class="button">Tirar foto</a>
-        <a class="button" onclick="gravar()">Gravar</a>
+        <a class="button" ng-click="ctrl.gravar()">Gravar</a>
         <a class="button">Enviar</a>
       </div>
           
@@ -76,7 +76,7 @@
       </div>   
     </ion-pane>
 
-    <script>
+    <!--<script>
     function gravar() {
       var http = "http://sandbox.cachina.com.br/webservice.php";
       $.ajax({
@@ -106,6 +106,7 @@
         });
     }
     </script>
+    -->
 
   </body>
 </html>

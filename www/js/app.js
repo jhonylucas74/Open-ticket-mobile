@@ -21,57 +21,93 @@ app.run(function($ionicPlatform) {
 
 app.controller("painelController",function($http){
     this.tab = 1;
-    this.teste = "nao mudou"; 
-    this.data = [{"assunto":"sdds"}];
+    this.data = [];
+    $scope = this;
 
-    this.changeTab = function(i){      
-      this.tab = i;      
+    this.changeTab = function(i){
+      this.tab = i;
+
+      if(i == 2){
+        // Apenas os tickets com status 0
+        this.getData(0);
+      }else{
+        // Apenas os tickets com status 1
+        this.getData(1);
+      }
+    };
+
+    this.getData = function(i){    
+      $http({
+          method: 'GET',
+          url: "http://sandbox.cachina.com.br/webservice.php?list_ticket=t&where=status@"+i,
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+          }).success(function(data, status, headers, config) {          
+            $scope.data = data; 
+          }).
+            error(function(data, status, headers, config) {
+            console.log(status);
+            console.log(config);     
+          }); 
     };
     
-
-
-    $http({
-        method: 'GET',
-        url: "http://sandbox.cachina.com.br/webservice.php?list_ticket=t&where=status@1",
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).success(function(data, status, headers, config) {          
-          console.log(data);
-          this.data = data;          
-        }).
-          error(function(data, status, headers, config) {
-          console.log(status);
-          console.log(config);     
-        });  
-
+    this.getData(1);
 });
 
 
 app.controller('novoTicketController', function($scope, $http) {
-  this.setor = '';
+  
+  this.assunto = "";
+  this.setor = "";
+  this.mensagem = "";  
+
   this.setorClass = "hidden";
+  $scope = this;
 
   var id = getParameterByName('id');
+  console.log("id igual "+id);
+
   $http({
         method: 'GET',
         url: "http://sandbox.cachina.com.br/webservice.php?edit_ticket=t&id="+id,
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     }).success(function(data, status, headers, config) {
       
-      console.log(data)
-      this.setor = data.setor;
-      this.mensagem = data.mensagem;
-      this.assunto = data.assunto;
+      console.log("tudo ok!");
+      console.log(data);
+      $scope.setor = data.setor;
+      $scope.mensagem = data.mensagem;
+      $scope.assunto = data.assunto;
 
     }).
     error(function(data, status, headers, config) {
-    console.log(status)
-    console.log(config)
-    //alert('error')
+    console.log("error mano");
+    console.log(status);
+    console.log(config);
   });
 
   this.gravar = function(){
+    console.log("entrei em gravar")
 
-  }
+    $http.post('http://sandbox.cachina.com.br/webservice.php',
+      {
+        setor: $scope.setor,
+        assunto: $scope.assunto,
+        mensagem: $scope.mensagem,
+        id: id,
+        update_ticket: true,
+      })
+    .success(function(data, status, headers, config) {
+      // sucesso
+      console.log("foi enviado!");
+    }).
+    error(function(data, status, headers, config) {
+      // erro
+      console.log("erro ao enviar");
+      console.log(status);
+      console.log(config);
+    });
+
+  };
 
   this.showSetor = function (){
     this.setorClass = "";

@@ -70,3 +70,8 @@ textarea {
 	background-color: #ffffff;
 	cursor: pointer;
 }
+
+a {
+	color: rgba(0,0,0,0.7);
+	text-decoration: none;
+}

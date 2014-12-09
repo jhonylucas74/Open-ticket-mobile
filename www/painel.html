@@ -51,10 +51,9 @@
     </div>
   </div>
 
-      <ion-content class="super-padding">            
-        {{  ctrl.data }}
+      <ion-content class="super-padding">                       
         <ul class="list" id="lista" ng-repeat="dat in ctrl.data">
-          <a href="edit-ticket.html?id='{{ dat.id }}">
+          <a href="novo-ticket.html?id={{ dat.id }}">
           <li class="item">{{ dat.assunto }}<status>Aberto</status>
           <data>{{ dat.data }}<data>;
           </a>
