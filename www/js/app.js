@@ -21,21 +21,22 @@ app.run(function($ionicPlatform) {
 
 app.controller("painelController",function($http){
     this.tab = 1;
-    this.teste = "nao mudou";
+    this.teste = "nao mudou"; 
+    this.data = [{"assunto":"sdds"}];
 
     this.changeTab = function(i){      
-      this.tab = i;
-
-      /*getData.getHttp().then(function(d) {
-       this.teste= "eu mudei";*/
+      this.tab = i;      
     };
+    
 
-    $http({ 
+
+    $http({
         method: 'GET',
         url: "http://sandbox.cachina.com.br/webservice.php?list_ticket=t&where=status@1",
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).success(function(data, status, headers, config) {
-          $scope.data = data;
+        }).success(function(data, status, headers, config) {          
+          console.log(data);
+          this.data = data;          
         }).
           error(function(data, status, headers, config) {
           console.log(status);
@@ -45,9 +46,32 @@ app.controller("painelController",function($http){
 });
 
 
-app.controller('novoTicketController', function() {
+app.controller('novoTicketController', function($scope, $http) {
   this.setor = '';
   this.setorClass = "hidden";
+
+  var id = getParameterByName('id');
+  $http({
+        method: 'GET',
+        url: "http://sandbox.cachina.com.br/webservice.php?edit_ticket=t&id="+id,
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    }).success(function(data, status, headers, config) {
+      
+      console.log(data)
+      this.setor = data.setor;
+      this.mensagem = data.mensagem;
+      this.assunto = data.assunto;
+
+    }).
+    error(function(data, status, headers, config) {
+    console.log(status)
+    console.log(config)
+    //alert('error')
+  });
+
+  this.gravar = function(){
+
+  }
 
   this.showSetor = function (){
     this.setorClass = "";
@@ -60,3 +84,7 @@ app.controller('novoTicketController', function() {
 
 });
 
+function getParameterByName(name) {
+          var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+          return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+      }

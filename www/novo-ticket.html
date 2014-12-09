@@ -42,7 +42,7 @@
         <div class="list">
           <label class="item item-input item-stacked-label">
             <span class="input-label">Assunto</span>
-            <input type="text" placeholder="Sobre o...">
+            <input type="text" placeholder="Sobre o..." id="assunto">
           </label>
 
           <label id="label-setor" class="item item-input item-stacked-label p-20">
@@ -63,11 +63,49 @@
 
       <div class="button-bar p-5">
         <a class="button">Tirar foto</a>
-        <a class="button">Gravar</a>
+        <a class="button" onclick="gravar()">Gravar</a>
         <a class="button">Enviar</a>
       </div>
           
       </ion-content>
+
+      <div class="bar bar-footer bar-light">
+        <a href="painel.html">
+          <div class="title">Listar Tickets</div>
+        </a>
+      </div>   
     </ion-pane>
+
+    <script>
+    function gravar() {
+      var http = "http://sandbox.cachina.com.br/webservice.php";
+      $.ajax({
+        type: "POST",
+        url: http,
+        data: {  
+                setor: $("#setor-list").val(),
+                assunto: $("#assunto").val(),
+                mensagem: $("#tct").val(),
+                usuario: localStorage.getItem("id"),
+                new_ticket: true,
+            },
+      })
+        .done(function( msg ) {
+          
+          alert('Cadastrado com Sucesso')
+          $("#setor-list").val(''),
+          $("#assunto").val(''),
+          $("#tct").val(''),
+
+        })
+        .fail(function(msg,a,b){
+
+          console.log(msg)
+          console.log(a)
+          console.log(b)
+        });
+    }
+    </script>
+
   </body>
 </html>
