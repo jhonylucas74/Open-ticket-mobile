@@ -75,3 +75,7 @@ a {
 	color: rgba(0,0,0,0.7);
 	text-decoration: none;
 }
+
+.scroll {
+	padding-bottom: 60px !important;
+}
