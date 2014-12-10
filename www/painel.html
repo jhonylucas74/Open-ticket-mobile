@@ -54,9 +54,12 @@
       <ion-content class="super-padding">                       
         <ul class="list" id="lista" ng-repeat="dat in ctrl.data">
           <a href="novo-ticket.html?id={{ dat.id }}">
-          <li class="item">{{ dat.assunto }}<status>Aberto</status>
-          <data>{{ dat.data }}<data>;
+            <li class="item">{{ dat.assunto }}<status>Aberto</status>
+            <data>{{ dat.data }}<data>            
           </a>
+          <button class="button button-light">
+            Fechar
+        </button>
           </li>
         </ul>    
 

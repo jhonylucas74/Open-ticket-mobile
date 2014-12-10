@@ -18,6 +18,54 @@ app.run(function($ionicPlatform) {
   });
 });
 
+app.controller("loginController", function($http,$ionicPopup){
+  this.usuario = "gre";
+  this.senha = "";
+  $scope = this;
+
+  // An alert dialog
+  this.showAlert = function() {
+   var alertPopup = $ionicPopup.alert({
+     title: 'Senha incorreta!',
+     template: 'Tente novamente.'
+   });
+   alertPopup.then(function(res) {     
+   });
+  };
+
+  this.login = function (){
+
+    console.log("entrei em login");
+
+    var url = "http://sandbox.cachina.com.br/webservice.php?login=true&usuario="+$scope.usuario+"&senha="+$scope.senha;
+
+    $http({
+        method: 'GET',
+        url: url,
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    }).success(function(data, status, headers, config) {
+      
+      console.log("tudo ok!");
+      console.log(data);
+      
+      if(data > 0){
+        window.location.href = "painel.html";
+      }else{
+        $scope.showAlert();
+      }
+
+    }).
+    error(function(data, status, headers, config) {
+      console.log("erro mano");
+      console.log(status);
+      console.log(config);
+    });
+
+  };
+
+
+
+});
 
 app.controller("painelController",function($http){
     this.tab = 1;
@@ -86,7 +134,7 @@ app.controller('novoTicketController', function($scope, $http) {
 
     }).
     error(function(data, status, headers, config) {
-    console.log("error mano");
+    console.log("erro mano");
     console.log(status);
     console.log(config);
   });
