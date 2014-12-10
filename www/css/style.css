@@ -43,8 +43,9 @@ status {
 
 data {
 	font-size: 0.9em;
-	color: rgba(0,0,0,0.4);
-	display: block;
+	color: rgba(0,0,0,0.4);	
+	vertical-align: top;
+	max-width: 70%;
 }
 
 textarea {
@@ -78,4 +79,20 @@ a {
 
 .scroll {
 	padding-bottom: 60px !important;
+}
+
+.inline {
+	display: inline-block !important;
+	vertical-align: top;	
+}
+
+.go-right {
+	float: right;
+	display: inline-block;
+	vertical-align: top;
+	position: relative !important;
+}
+
+.item-complex{
+	margin-top: 5px;
 }

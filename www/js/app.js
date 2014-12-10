@@ -67,9 +67,10 @@ app.controller("loginController", function($http,$ionicPopup){
 
 });
 
-app.controller("painelController",function($http){
+app.controller("painelController",function($http, $ionicLoading){
     this.tab = 1;
     this.data = [];
+    this.toggle_msg = "Fechar tickets?";    
     $scope = this;
 
     this.changeTab = function(i){
@@ -77,26 +78,40 @@ app.controller("painelController",function($http){
       switch(i){
         case 1:
           // Apenas os tickets com status 1
+          this.toggle_msg = "Fechar tickets?";
           this.getData("&where=status@1");
           break;
         case 2:
           // Apenas os tickets com status 0
+          this.toggle_msg = "Reabrir tickets?";
           this.getData("&where=status@0");
           break;
         case 3:
           // Todos os tickets
+          this.toggle_msg = ""; 
           this.getData("");
           break;
       };   
     };
 
-    this.getData = function(query){    
+    this.show = function() {
+      $ionicLoading.show({
+        template: 'Loading...'
+      });
+    };
+    this.hide = function(){
+      $ionicLoading.hide();
+    };
+
+    this.getData = function(query){  
+      this.show();  
       $http({
           method: 'GET',
           url: "http://sandbox.cachina.com.br/webservice.php?list_ticket=t"+query,
           headers: {'Content-Type': 'application/x-www-form-urlencoded'}
           }).success(function(data, status, headers, config) {          
             $scope.data = data; 
+            $scope.hide();
           }).
             error(function(data, status, headers, config) {
             console.log(status);
@@ -104,7 +119,33 @@ app.controller("painelController",function($http){
           }); 
     };
     
-    this.getData("&where=status@1");
+    this.getData("&where=status@1");    
+
+    this.goEdit= function(id){
+       window.location.href = "novo-ticket.html?id="+id;
+    };
+
+    this.changeStatus = function(id){      
+      this.show(); 
+      var url; 
+      if (this.tab == 1){
+        url =  "http://sandbox.cachina.com.br/webservice.php?close_ticket=t&id="+id;
+      }else{
+        url =  "http://sandbox.cachina.com.br/webservice.php?open_ticket=t&id="+id;
+      }
+
+      $http({
+          method: 'GET',
+          url: url,
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+          }).success(function(data, status, headers, config) {          
+            $scope.getData("&where=status@"+$scope.tab);            
+          }).
+            error(function(data, status, headers, config) {
+            console.log(status);
+            console.log(config);     
+          });
+    };
 });
 
 
