@@ -5,7 +5,8 @@
 // the 2nd parameter is an array of 'requires'
 var app = angular.module('starter', ['ionic']);
 
-app.run(function($ionicPlatform) {
+app.run(function($ionicPlatform,$http) {
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -213,7 +214,22 @@ app.controller('novoTicketController', function($scope, $http) {
   this.changeSetor = function(setor) {
     this.setor = setor;
     this.setorClass = "hidden";
-  };  
+  };
+
+  /*
+  this.getPhoto = function() {
+    $camera.getPicture().then(function(imageURI) {
+      console.log(imageURI);
+      $scope.lastPhoto = imageURI;
+    }, function(err) {
+      console.err(err);
+    }, {
+      quality: 75,
+      targetWidth: 320,
+      targetHeight: 320,
+      saveToPhotoAlbum: false
+    });
+  };*/
 
 });
 
